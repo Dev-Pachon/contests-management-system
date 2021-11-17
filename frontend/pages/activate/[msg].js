@@ -1,8 +1,6 @@
 import {useRouter} from 'next/router'
-import Head from 'next/head'
-import HeadRPC from '../../components/HeadRPC'
+import Head from 'next/Head'
 import Link from 'next/Link'
-import LoginForm from '../../components/LoginForm'
 
 export default function register(){
   const router = useRouter()
@@ -34,11 +32,6 @@ export default function register(){
         <link rel="icon" href="/logo.ico" />
 
       </Head>
-
-      <HeadRPC />
-
-      <LoginForm />
-
       <br />
 
       <h1 className="py-1 text-center">Sign up</h1>

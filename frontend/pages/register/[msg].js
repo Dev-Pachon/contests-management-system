@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router'
-import Head from 'next/head'
-import RegisterForm from '../../components/RegisterForm'
+import Head from 'next/Head'
+import Register from '../../components/Register'
 
 export default function register(){
   const router = useRouter()
@@ -16,13 +16,12 @@ export default function register(){
       message = 'El nickname especificado ya existe!'
       break
     case 'msg4':
-      message = 'El usuario fue registrado exitosamete. Antes de iniciar sesión verifique su cuenta con el enlace enviado a su correo'
+      message = 'El usuario fue registrado exitosamente. Antes de iniciar sesión verifique su cuenta con el enlace enviado a su correo'
       break
   }
   
   return (
     <div className="container">
-
             <Head>
 
                 <meta charSet="UTF-8" />
@@ -40,7 +39,7 @@ export default function register(){
 
             </Head>
 
-            <RegisterForm />
+            <Register />
 
             <p className="text-center">{message}</p>
 

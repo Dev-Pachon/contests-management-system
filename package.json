@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "This will be an web app for RPC platform",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev backend": "cd backend && nodemon app.js",
+    "dev backend": "cd backend && nodemon Server.js",
     "dev frontend": "cd frontend && next dev"
   },
   "author": "PI1 2021-2",
