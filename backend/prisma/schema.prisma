@@ -31,10 +31,10 @@ model credencial {
   codigo_credencial String  @db.VarChar(20)
   correo            String  @db.VarChar(100)
   token             String  @db.VarChar(200)
-  username          String  @db.VarChar(20)
-  usuario           usuario @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+  username          String? @unique @db.VarChar(20)
+  usuario           usuario @relation(fields: [correo], references: [correo], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([codigo_credencial, username])
+  @@id([codigo_credencial, correo])
 }
 
 model equipo {
@@ -95,7 +95,7 @@ model universidad {
 }
 
 model usuario {
-  username           String           @id @db.VarChar(20)
+  correo             String           @id @db.VarChar(100)
   nombre             String           @db.VarChar(50)
   apellido           String           @db.VarChar(50)
   descripcion        String?          @db.VarChar(300)
@@ -109,9 +109,9 @@ model usuario {
 
 model usuario_equipo {
   codigo_equipo String  @db.VarChar(20)
-  username      String  @db.VarChar(20)
+  correo        String  @db.VarChar(100)
   equipo        equipo  @relation(fields: [codigo_equipo], references: [codigo_equipo], onDelete: NoAction, onUpdate: NoAction)
-  usuario       usuario @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+  usuario       usuario @relation(fields: [correo], references: [correo], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([codigo_equipo, username])
+  @@id([codigo_equipo, correo])
 }

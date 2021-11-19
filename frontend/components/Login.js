@@ -3,16 +3,15 @@ import {useForm} from "react-hook-form";
 
 
 export default function Login() {
-	const {register, handleSubmit} = useForm({shouldUseNativeValidation: true});
-	// handle form submit
+	const {register, handleSubmit} = useForm();
 	const onSubmit = async data => {
-		await fetch('/authenticate',
+		await fetch('http://localhost:3000/api/authenticate',
 			{
 				method: "POST",
 				body: JSON.stringify({data}),
 				headers: {
 					"Content-Type": "application/json"
-				}
+				},
 			})
 	};
 
@@ -23,8 +22,6 @@ export default function Login() {
 				<h1 className="py-1 text-center">Sign in</h1>
 
 				<form className="w-50 mx-auto p-2"
-					  method="POST"
-					  action="http://localhost:8080/authenticate"
 					  onSubmit={handleSubmit(onSubmit)}>
 
 					<div className="form-group">
