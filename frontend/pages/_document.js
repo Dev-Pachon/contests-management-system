@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, {Html, Head, Main, NextScript} from 'next/document'
 
 class MyDocument extends Document {
 
@@ -6,17 +6,23 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					<meta charSet="UTF-8" />
+					<meta charSet="UTF-8"/>
 
-					<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+					<meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
 
-					<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossOrigin="anonymous" />
+					<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+						  rel="stylesheet"
+						  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+						  crossOrigin="anonymous"/>
 
-					<link rel="icon" href="/logo.ico" />
+					<link rel="icon" href="/logo.ico"/>
 				</Head>
 				<body>
-				<Main />
-				<NextScript />
+				<Main/>
+				<NextScript/>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+						integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+						crossOrigin="anonymous"/>
 				</body>
 			</Html>
 		)

@@ -1,11 +1,11 @@
-import Navbar from './Navbar'
-import Footer from './Footer'
+import Navbar from './BasicNavbar'
+import Footer from './BasicFooter'
 
 export default function Layout({children}) {
 	return (
 		<>
 			<Navbar/>
-			<main>{children}</main>
+			<main style={{paddingTop: "4.5rem", paddingBottom:"5rem"}}>{children}</main>
 			<Footer/>
 		</>
 	)

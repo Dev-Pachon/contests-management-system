@@ -1,6 +1,20 @@
 import Link from "next/Link";
+import {useForm} from "react-hook-form";
+
 
 export default function Login() {
+	const {register, handleSubmit} = useForm({shouldUseNativeValidation: true});
+	// handle form submit
+	const onSubmit = async data => {
+		await fetch('/authenticate',
+			{
+				method: "POST",
+				body: JSON.stringify({data}),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+	};
 
 	return (
 		<div>
@@ -8,19 +22,28 @@ export default function Login() {
 
 				<h1 className="py-1 text-center">Sign in</h1>
 
-				<form className="w-50 mx-auto p-2" method="POST" action="http://localhost:8080/authenticate">
+				<form className="w-50 mx-auto p-2"
+					  method="POST"
+					  action="http://localhost:8080/authenticate"
+					  onSubmit={handleSubmit(onSubmit)}>
 
 					<div className="form-group">
 
 						<label htmlFor="email">Email:</label><br/>
 
-						<input type="email" id="email" name="email"
-							   className="form-control" placeholder="Email" required/><br/>
+						<input type="email" id="email" className="form-control"
+							   placeholder="Email" name="email" autoComplete="off"
+							   {...register("email", {
+								   required: "Email required",
+							   })}/><br/>
 
 						<label htmlFor="password">Password:</label><br/>
 
 						<input type="password" id="password" className="form-control"
-							   name="password" placeholder="Password" required/><br/>
+							   placeholder="Password" name="password"
+							   {...register("password", {
+								   required: "Password required.",
+							   })}/><br/>
 
 						<input type="submit" className="btn btn-primary m-auto " value="Login"/>
 					</div>
@@ -41,7 +64,7 @@ export default function Login() {
 
 			</Link>
 
-			<Link href="/home/1">
+			<Link href="/home/2">
 				<a className="btn btn-primary" role="button">asd</a>
 			</Link>
 

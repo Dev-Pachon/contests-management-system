@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ciudad {
+  codigo_ciudad String        @id @db.VarChar(20)
+  nombre_ciudad String        @db.VarChar(20)
+  codigo_pais   String?       @db.VarChar(20)
+  pais          pais?         @relation(fields: [codigo_pais], references: [codigo_pais], onDelete: NoAction, onUpdate: NoAction)
+  universidad   universidad[]
+}
+
+model competencia {
+  codigo_competencia String               @id @db.VarChar(20)
+  fecha_finalizacion DateTime             @db.Date
+  fecha_inicio       DateTime             @db.Date
+  fecha_fin_ins      DateTime             @db.Date
+  fecha_inicio_ins   DateTime             @db.Date
+  nombre             String               @db.VarChar(50)
+  categoria          String?              @db.VarChar(20)
+  numero_equipos     Int?
+  equipo_competencia equipo_competencia[]
+}
+
+model credencial {
+  codigo_credencial String  @db.VarChar(20)
+  correo            String  @db.VarChar(100)
+  token             String  @db.VarChar(200)
+  username          String  @db.VarChar(20)
+  usuario           usuario @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([codigo_credencial, username])
+}
+
+model equipo {
+  codigo_equipo      String               @id @db.VarChar(20)
+  nombre             String               @db.VarChar(50)
+  equipo_competencia equipo_competencia[]
+  usuario_equipo     usuario_equipo[]
+}
+
+model equipo_competencia {
+  codigo_equipo      String      @db.VarChar(20)
+  codigo_competencia String      @db.VarChar(20)
+  competencia        competencia @relation(fields: [codigo_competencia], references: [codigo_competencia], onDelete: NoAction, onUpdate: NoAction)
+  equipo             equipo      @relation(fields: [codigo_equipo], references: [codigo_equipo], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([codigo_equipo, codigo_competencia])
+}
+
+model pais {
+  codigo_pais String   @id @db.VarChar(20)
+  nombre_pais String   @db.VarChar(20)
+  ciudad      ciudad[]
+}
+
+model permiso {
+  codigo_permiso String        @id @db.VarChar(20)
+  entidad        String        @db.VarChar(20)
+  c              Boolean
+  r              Boolean
+  u              Boolean
+  d              Boolean
+  rol_permiso    rol_permiso[]
+}
+
+model rol {
+  codigo_rol  String        @id @db.VarChar(20)
+  nombre      String        @db.VarChar(50)
+  descripcion String?       @db.VarChar(100)
+  rol_permiso rol_permiso[]
+  usuario     usuario[]
+}
+
+model rol_permiso {
+  codigo_permiso String  @db.VarChar(20)
+  codigo_rol     String  @db.VarChar(20)
+  permiso        permiso @relation(fields: [codigo_permiso], references: [codigo_permiso], onDelete: NoAction, onUpdate: NoAction)
+  rol            rol     @relation(fields: [codigo_rol], references: [codigo_rol], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([codigo_permiso, codigo_rol])
+}
+
+model universidad {
+  codigo_universidad String    @id @db.VarChar(20)
+  nombre_universidad String    @db.VarChar(50)
+  codigo_ciudad      String?   @db.VarChar(20)
+  ciudad             ciudad?   @relation(fields: [codigo_ciudad], references: [codigo_ciudad], onDelete: NoAction, onUpdate: NoAction)
+  usuario            usuario[]
+}
+
+model usuario {
+  username           String           @id @db.VarChar(20)
+  nombre             String           @db.VarChar(50)
+  apellido           String           @db.VarChar(50)
+  descripcion        String?          @db.VarChar(300)
+  codigo_universidad String?          @db.VarChar(20)
+  codigo_rol         String?          @db.VarChar(20)
+  rol                rol?             @relation(fields: [codigo_rol], references: [codigo_rol], onDelete: NoAction, onUpdate: NoAction)
+  universidad        universidad?     @relation(fields: [codigo_universidad], references: [codigo_universidad], onDelete: NoAction, onUpdate: NoAction)
+  credencial         credencial[]
+  usuario_equipo     usuario_equipo[]
+}
+
+model usuario_equipo {
+  codigo_equipo String  @db.VarChar(20)
+  username      String  @db.VarChar(20)
+  equipo        equipo  @relation(fields: [codigo_equipo], references: [codigo_equipo], onDelete: NoAction, onUpdate: NoAction)
+  usuario       usuario @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([codigo_equipo, username])
+}

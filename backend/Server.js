@@ -3,16 +3,26 @@
 const localHostPort = 8080;
 
 //express imports
-
 const express = require('express');
+
+const { PrismaClient } = require('@prisma/client')
+
+const {findUser} = require("./Database");
 
 const app = express();
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.post("/authenticate", (req, res) => {
+app.post("/authenticate", async (req, res) => {
+    const prisma = new PrismaClient()
+    const user = await findUser(prisma)
 
+    res.send(user)
+    //console.log(req.body)
+   // res.append("body",user)
+    //res.redirect("http://localhost:3000/home/")
+    prisma.$disconnect()
 })
 
 
