@@ -1,33 +1,30 @@
-import Login from '../components/Login';
-import BasicLayout from "../components/BasicLayout";
+import Feed from '../../components/Home/Feed';
+import LoggedNavbar from "../../components/LoggedNavbar";
 import {useSession} from "next-auth/client";
 import {useRouter} from "next/router";
-import NavbarUnlogged from "../components/BasicNavbar";
 import {useEffect} from "react";
+import Login from "../../components/Login";
 
-
-export default function login() {
-
+export default function feed() {
 	const [session, loading] = useSession()
 	const router = useRouter()
-	useEffect(()=>{
-		const func = async (e)=>{
-			if(session){
-				await router.push("/home/feed")
-			}else{
+
+	useEffect(() => {
+		const func = async (e) => {
+			if (!session) {
 				await router.push("/login")
 			}
 		}
 		func()
 
-	},[session])
+	}, [session])
 
 	if (typeof window !== "undefined" && loading) return null
 
 	return (<>
-			<NavbarUnlogged/>
+			<LoggedNavbar/>
 			<main style={{paddingTop: "4.5rem"}}>
-				<Login/>
+				<Feed/>
 			</main>
 		</>
 	)

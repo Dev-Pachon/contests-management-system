@@ -1,6 +1,6 @@
 import Link from "next/Link"
 
-export default function Navbar({signIn}) {
+export default function Navbar() {
 	return (
 		<nav className="navbar fixed-top navbar-expand-sm navbar-dark" style={{backgroundColor: "#001A33"}}>
 			<div className="container ms-5">
@@ -65,12 +65,12 @@ export default function Navbar({signIn}) {
 			</div>
 
 			<div className="me-4">
-				<button className="btn btn-light"
-						style={{borderRadius: "10px"}}
-						type="button"
-						onClick={signIn}>
-					Sign In
-				</button>
+				<Link href="/">
+					<a className="btn btn-light"
+					   style={{borderRadius: "10px"}}>
+						Sign In
+					</a>
+				</Link>
 			</div>
 		</nav>
 	)

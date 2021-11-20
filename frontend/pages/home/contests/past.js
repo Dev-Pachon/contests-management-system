@@ -1,7 +1,9 @@
+import Past from '../../../components/Home/Contests/Past';
+import LoggedLayout from "../../../components/LoggedLayout";
 import {useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 
-export default function Home() {
+export default function login(){
 	const [session, loading] = useSession()
 	const router = useRouter()
 
@@ -13,7 +15,11 @@ export default function Home() {
 		}
 	}
 
+	if(typeof window !== "undefined" && loading) return null
+
 	return (
-		<main onLoad={func()}/>
+		<main onLoad={func}>
+			<LoggedLayout children={Past}/>
+		</main>
 	)
 }

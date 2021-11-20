@@ -1,48 +1,11 @@
 import Link from "next/Link";
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
+import {getSession, signIn, useSession} from "next-auth/client";
 
-
-export default function Login(signIn) {
+export default function Login() {
 	const {register, handleSubmit} = useForm();
-	const[content, setContent] = useState()
-	const onSubmit = async data => {
-		const res = await fetch('http://localhost:3000/api/authenticate',
-			{
-				method: "POST",
-				body: JSON.stringify({data}),
-				headers: {
-					"Content-Type": "application/json"
-				},
-			})
-		if (res.ok) {
-			const data = await res.json()
 
-			//console.log(data)
-		useEffect(()=>{
-			const fetch = async ()=>{
-				const res = await fetch('http://localhost:3000/home/feed',
-					{
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							"user": data.user,
-							"token": data.token,
-							"refresh-token": data.refreshToken,
-						},
-					})
-				const data = res.json()
-				if(data){
-					setContent(data)
-				}
-			}
-			fetch()
-		},[session])
-
-		} else {
-			alert("Your email or password is incorrect")
-		}
-	};
+	const onSubmit = async data => console.log(data)
 
 	return (
 		<div>
@@ -71,7 +34,7 @@ export default function Login(signIn) {
 								   required: "Password required.",
 							   })}/><br/>
 
-						<input type="submit" className="btn btn-primary m-auto" value="Login"/>
+						<center><input type="submit" className="btn btn-primary m-auto" value="Login"/></center>
 					</div>
 
 				</form>

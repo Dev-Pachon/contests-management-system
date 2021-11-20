@@ -1,6 +1,11 @@
 import Link from "next/Link";
+import {useSession} from "next-auth/client";
+import {signOut} from "next-auth/client";
 
-export default function Navbar({session, signOut}) {
+
+export default function Navbar() {
+	const [session, loading] = useSession()
+
 	return (
 		<nav className="navbar fixed-top navbar-expand-sm navbar-dark" style={{backgroundColor: "#001A33"}}>
 			<div className="container ms-5">
@@ -64,7 +69,7 @@ export default function Navbar({session, signOut}) {
 				</div>
 			</div>
 
-			<div className="text-white me-3"> {session.user.name}</div>
+			<div className="text-white me-3"> {session && session.user.name}</div>
 
 			<div className="me-4">
 				<button className="btn btn-light"
