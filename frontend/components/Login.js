@@ -1,11 +1,13 @@
 import Link from "next/Link";
 import {useForm} from "react-hook-form";
+import {useEffect, useState} from "react";
 
 
-export default function Login() {
+export default function Login(signIn) {
 	const {register, handleSubmit} = useForm();
+	const[content, setContent] = useState()
 	const onSubmit = async data => {
-		await fetch('http://localhost:3000/api/authenticate',
+		const res = await fetch('http://localhost:3000/api/authenticate',
 			{
 				method: "POST",
 				body: JSON.stringify({data}),
@@ -13,6 +15,33 @@ export default function Login() {
 					"Content-Type": "application/json"
 				},
 			})
+		if (res.ok) {
+			const data = await res.json()
+
+			//console.log(data)
+		useEffect(()=>{
+			const fetch = async ()=>{
+				const res = await fetch('http://localhost:3000/home/feed',
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"user": data.user,
+							"token": data.token,
+							"refresh-token": data.refreshToken,
+						},
+					})
+				const data = res.json()
+				if(data){
+					setContent(data)
+				}
+			}
+			fetch()
+		},[session])
+
+		} else {
+			alert("Your email or password is incorrect")
+		}
 	};
 
 	return (
@@ -42,10 +71,14 @@ export default function Login() {
 								   required: "Password required.",
 							   })}/><br/>
 
-						<input type="submit" className="btn btn-primary m-auto " value="Login"/>
+						<input type="submit" className="btn btn-primary m-auto" value="Login"/>
 					</div>
 
 				</form>
+
+				<button className="btn btn-dark" onClick={signIn}>
+					Sign in with GitHub
+				</button>
 
 
 			</div>

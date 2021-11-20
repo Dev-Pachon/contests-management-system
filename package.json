@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "jsonwebtoken": "^8.5.1",
+    "next-auth": "^3.29.0",
     "nodemon": "^2.0.15",
     "passport-jwt": "^4.0.0",
     "prisma": "^3.5.0"

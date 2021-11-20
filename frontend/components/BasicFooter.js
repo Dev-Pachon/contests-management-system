@@ -1,20 +1,26 @@
 export default function Footer({children}) {
 	return (
-		<footer className="bg-dark fixed-bottom">
-			<div className="container py-3 pb-lg-1">
-				<div className="row clearfix">
-					<div className="small">
-						<p className="text-white">2013-2021 © <strong>Red de Programación Competitiva - RPC</strong>.
-							Todos
-							los derechos reservados.</p>
-					</div>
-					<div className="clearfix text-right">
-						<a href="https://es-la.facebook.com/RedProgramacionCompetitiva/" title="Síguenos en Facebook"
-						   target="_blank"><img src="/facebook-white.png" alt="RPC Facebook"/></a> &nbsp;
-						<a href="https://twitter.com/redprogramacion" title="Síguenos en Twitter" target="_blank"><img
-							src="/twitter-white.png" alt="RPC Twitter"/></a> &nbsp;
-					</div>
+		<footer className="text-center text-lg-start bg-light text-muted">
+			<section
+				className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+			>
+				<div className="me-5 d-none d-lg-block">
+					<span>Get connected with us on social networks:</span>
 				</div>
+
+				<div>
+					<a href="https://es-la.facebook.com/RedProgramacionCompetitiva/" className="me-4 text-reset">
+						<i className="fab fa-facebook-f"></i>
+					</a>
+					<a href="https://twitter.com/redprogramacion" className="me-4 text-reset">
+						<i className="fab fa-twitter"></i>
+					</a>
+				</div>
+			</section>
+
+			<div className="text-center p-4" style={{backgroundColor: "rgba(0, 0, 0, 0.05)"}}>
+				© 2021 Copyright:
+				<a className="text-reset fw-bold" href="https://redprogramacioncompetitiva.com/">  RPC :: Red de Programación Competitiva</a>
 			</div>
 		</footer>
 	)

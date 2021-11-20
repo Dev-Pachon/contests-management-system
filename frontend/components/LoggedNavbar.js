@@ -1,6 +1,6 @@
-import Link from "next/Link"
+import Link from "next/Link";
 
-export default function Navbar({signIn}) {
+export default function Navbar({session, signOut}) {
 	return (
 		<nav className="navbar fixed-top navbar-expand-sm navbar-dark" style={{backgroundColor: "#001A33"}}>
 			<div className="container ms-5">
@@ -64,12 +64,14 @@ export default function Navbar({signIn}) {
 				</div>
 			</div>
 
+			<div className="text-white me-3"> {session.user.name}</div>
+
 			<div className="me-4">
 				<button className="btn btn-light"
 						style={{borderRadius: "10px"}}
 						type="button"
-						onClick={signIn}>
-					Sign In
+						onClick={signOut}>
+					Logout
 				</button>
 			</div>
 		</nav>

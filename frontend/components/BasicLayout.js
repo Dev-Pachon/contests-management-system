@@ -1,12 +1,26 @@
-import Navbar from './BasicNavbar'
 import Footer from './BasicFooter'
+import NavbarLogged from "./LoggedNavbar";
+import {signIn, signOut} from "next-auth/client";
+import NavbarUnlogged from "./BasicNavbar";
 
-export default function Layout({children}) {
+export default function Layout({children, session, signIn, signOut}) {
 	return (
 		<>
-			<Navbar/>
-			<main style={{paddingTop: "4.5rem", paddingBottom:"5rem"}}>{children}</main>
+			<main>
+				{session && (
+					<>
+						<NavbarLogged session={session} signOut={signOut}/>
+					</>
+				)}
+				{!session && (
+					<>
+						<NavbarUnlogged signIn={signIn}/>
+					</>
+				)}
+				{children}
+			</main>
 			<Footer/>
+
 		</>
 	)
 }

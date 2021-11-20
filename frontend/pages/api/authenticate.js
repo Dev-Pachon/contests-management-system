@@ -1,7 +1,8 @@
+import {useRouter} from "next/router";
 
 export default async function handler(req, res) {
 
-	const r = await fetch('http://localhost:8080/authenticate', {
+	const r = await fetch('http://localhost:8080/login', {
 		method: "POST",
 		body: JSON.stringify(req.body.data),
 		headers: {
@@ -9,7 +10,13 @@ export default async function handler(req, res) {
 		}
 	})
 
-	const data = await r.json()
+	//console.log(r)
 
-	res.status(200).json(data)
+	if(r.ok){
+		const data = await r.json()
+		//console.log(data)
+		res.status(200).send(data)
+	}
+
+	res.status(401).send()
 }

@@ -1,12 +1,15 @@
 import Register from '../components/Register'
-import BasicLayout from "../components/BasicLayout";
+import {getSession, signIn, signOut} from "next-auth/client";
+import NavbarUnlogged from "../components/BasicNavbar";
+import Footer from "../components/BasicFooter";
+import {useRouter} from "next/router";
 
-export default Register
-
-Register.getLayout = function getLayout(page) {
-	return (
-		<BasicLayout>
-			{page}
-		</BasicLayout>
+export default function register() {
+	const router = useRouter()
+	return (<main style={{paddingTop: "4.5rem"}}>
+			<NavbarUnlogged signIn={()=>router.push("/")}/>
+			<Register/>
+			<Footer/>
+		</main>
 	)
 }

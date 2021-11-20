@@ -1,9 +1,21 @@
 import {useRouter} from 'next/router'
 import Link from 'next/Link'
+import {useEffect} from "react";
+import {getSession} from "next-auth/client";
 
-export default function home({users}) {
+export default function home({users, status}) {
+
 	const router = useRouter()
-	let nickname = router.query.user
+
+	//console.log(router)
+
+	if(status === 401){
+		useEffect(()=>{
+			router.push("/")
+		})
+
+		return <p>Redirect</p>
+	}
 
 	return (
 		<div className="container">
@@ -64,9 +76,32 @@ export default function home({users}) {
 
 export async function getServerSideProps(context) {
 
-	const response = await fetch('http://localhost:8080/users')
-	const users = await response.json()
-	return {
-		props: {users: users},
+
+	const dataContext = context.req["headers"]
+
+	console.log(dataContext)
+
+
+	const user = dataContext["user"]
+	const token = dataContext['token']
+
+	//console.log(user + token)
+
+	const res = await fetch('http://localhost:8080/auth/home',
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"user": user,
+				"token": token,
+				"refresh-token": dataContext.refreshToken,
+			},
+		})
+	if (res.ok) {
+		const response = await fetch('http://localhost:8080/users')
+		const users = await response.json()
+		return {props:{users: users, status: 200}}
+	} else {
+		return {props: {users: null, status: 401}}
 	}
 }
